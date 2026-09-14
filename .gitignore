@@ -1,0 +1,7 @@
+# Raw football-data.co.uk files are not published: the source has no formal licence.
+# Only derived analysis (aggregates, figures, conclusions) is published, with attribution.
+data/raw/
+data/manifest.json
+
+__pycache__/
+*.pyc
