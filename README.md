@@ -79,6 +79,14 @@ Returns on these bets have a standard deviation of ~2.6 stakes, so demonstrating
 **170,000 bets**. The data holds 1,254. The test was never going to be decisive — and the power calculation says
 so before any result is read.
 
+## SQL reproduction
+
+[`sql/`](sql/) recomputes the point estimates in plain SQL (SQLite) and checks them against `results.json`:
+**82 of 82 checks match**. The schema keeps the betting logic in views: long match × outcome format, overrounds,
+fair probabilities. The queries use CTEs, pivots, window functions and gaps-and-islands. They add one view the
+Python analysis did not have: H3 as a trading record. In exploration the strategy finished at +56.7 units, but only
+after a 153-unit drawdown and a 27-bet losing streak.
+
 ## Limitations
 
 - One data source; pre-closing odds are stamped only as "Friday or Tuesday afternoon".
@@ -94,6 +102,9 @@ python quality.py
 python analysis.py exploration
 python analysis.py holdout --one-look
 python posthoc_holdout.py
+python sql/build_db.py
+python sql/run_queries.py
 ```
 
-Python 3, numpy, pandas, matplotlib. Logistic regression and bootstrap are implemented directly in numpy.
+Python 3, numpy, pandas, matplotlib; the SQL layer needs only the standard library (`sqlite3`).
+Logistic regression and bootstrap are implemented directly in numpy.
