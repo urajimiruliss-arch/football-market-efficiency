@@ -87,6 +87,22 @@ fair probabilities. The queries use CTEs, pivots, window functions and gaps-and-
 Python analysis did not have: H3 as a trading record. In exploration the strategy finished at +56.7 units, but only
 after a 153-unit drawdown and a 27-bet losing streak.
 
+## Post-hoc: do lines drift towards the favourite?
+
+A classic betting-book claim (J.R. Miller, written about the NFL in the 1980s–90s) says three of four lines move
+towards the favourite before kick-off, so you should back favourites early and underdogs late.
+[`posthoc_line_drift.py`](posthoc_line_drift.py) checks it by comparing pre-closing and closing prices. The
+specification is in the script header and was fixed before the first run.
+
+- **No drift towards the favourite.** Among matches whose line moved by at least 0.5 pp, the favourite shortened in
+  50–52% of cases, not 75%. This holds for Pinnacle, Bet365 and the market average, in both 2016/17–2022/23 and
+  2023/24–2025/26. The favourite's average probability change is ~0 pp.
+- **Timing is not an edge.** The "favourite early / underdog late" return differences are small, change sign between
+  books and periods, and every return stays negative. At Pinnacle both sides return slightly more at the close, which
+  reflects the closing margin, not direction.
+- **The selection check matters.** If the favourite is defined by the closing price, the same data shows a spurious
+  +0.24 to +0.39 pp drift towards it. That is regression to the mean, and it would have "confirmed" the claim.
+
 ## Limitations
 
 - One data source; pre-closing odds are stamped only as "Friday or Tuesday afternoon".
